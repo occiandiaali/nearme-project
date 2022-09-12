@@ -1,20 +1,57 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> nearMe </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Blank</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
-  <div id="container">
+  <!-- <div id="container">
     <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <p>
+      Start with Ionic
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://ionicframework.com/docs/components"
+        >UI Components</a
+      >
+    </p>
+  </div> -->
+  <div class="search-wrapper" *ngIf="showSearch">
+    <input
+      type="text"
+      class="form-control field"
+      (keyup)="getValue(search.value)"
+      #search
+      name="search"
+      placeholder="Find near me.."
+    />
+    <div>
+      <ul
+        class="resultList"
+        *ngFor="let result of searchResults"
+        class="list-group"
+      >
+        <li
+          role="button"
+          (click)="setPlaceLocation(result.position.lat,result.position.lon,result.poi.name)"
+          class="list-group-item cursor"
+        >
+          {{result.poi.name}}
+        </li>
+      </ul>
+    </div>
   </div>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button color="dark" size="small" (click)="fabClick()">
+      <ion-icon name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div id="map" class="map"></div>
 </ion-content>
